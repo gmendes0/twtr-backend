@@ -10,10 +10,11 @@ function generateToken(payload = {}) {
 module.exports = {
   async register(request, response) {
     try {
-      const { email, password } = request.body
+      const { username, email, password } = request.body
 
-      const user = await User.create({ email, password })
-  
+      const user = await User.create({ username, email, password })
+      user.password = undefined
+
       const token = generateToken({ id:  user.id  })
       return response.json({ user, token })
     } catch (error) {
@@ -34,6 +35,7 @@ module.exports = {
         return response.status(401).json({ error: { message: 'the credentials do not match with our records.' } })
       } else {
         const token = generateToken({ id: user.id })
+        user.password = undefined
         return response.json({ user, token })
       }
     } catch (error) {

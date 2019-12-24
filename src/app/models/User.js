@@ -4,6 +4,7 @@ const bcryptjs = require('bcryptjs')
 class User extends Model {
   static init(connection) {
     super.init({
+      username: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING
     }, {
@@ -14,6 +15,10 @@ class User extends Model {
       },
       sequelize: connection
     })
+  }
+
+  static associate(models) {
+    this.hasOne(models.Profile, { foreignKey: 'user_id', as: 'profile' })
   }
 }
 
