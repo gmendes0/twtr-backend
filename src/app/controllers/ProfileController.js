@@ -5,7 +5,7 @@ module.exports = {
   async index(request, response) {
     try {
 
-      const { user_id } = request.params
+      const { user_id } = request
 
       const user = await User.findByPk(user_id, {
         include: { association: 'profile' }
@@ -20,7 +20,7 @@ module.exports = {
   async store(request, response) {
     try {
       
-      const { user_id } = request.params
+      const { user_id } = request
       const { name, phone, birth_date } = request.body
       const user = await User.findByPk(user_id, {
         include: { association: 'profile' }

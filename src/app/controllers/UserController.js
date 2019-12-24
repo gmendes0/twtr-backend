@@ -27,7 +27,7 @@ module.exports = {
     try {
       const { email, password } = request.body
 
-      const user = await User.findOne({ email })
+      const user = await User.findOne({ where: { email }})
 
       if (!user)
         return response.status(404).json({ error: { message: 'user not found.' }})
