@@ -1,4 +1,7 @@
 const routes = require('express').Router()
+const multer = require('multer')
+
+const avatarsConfig = require('./config/multer_avatars')
 
 const UserController = require('./app/controllers/UserController')
 const PostController = require('./app/controllers/PostController')
@@ -21,5 +24,6 @@ routes.put('/comments/:comment_id', Authentication.Auth, CommentController.updat
 routes.delete('/comments/:comment_id', Authentication.Auth, CommentController.destroy)
 routes.get('/posts/:post_id/comments', PostCommentController.index)
 routes.get('/users/posts', Authentication.Auth, UserPostController.index)
+routes.post('/users/avatars', Authentication.Auth, multer(avatarsConfig).single('file'), (req, res) => res.json({msg: 'ok'}))
 
 module.exports = routes
