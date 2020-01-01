@@ -8,6 +8,7 @@ const PostController = require('./app/controllers/PostController')
 const CommentController = require('./app/controllers/CommentController')
 const PostCommentController = require('./app/controllers/PostCommentController')
 const UserPostController = require('./app/controllers/UserPostController')
+const AvatarController = require('./app/controllers/AvatarController')
 
 const Authentication = require('./app/middlewares/Authentication')
 
@@ -24,6 +25,6 @@ routes.put('/comments/:comment_id', Authentication.Auth, CommentController.updat
 routes.delete('/comments/:comment_id', Authentication.Auth, CommentController.destroy)
 routes.get('/posts/:post_id/comments', PostCommentController.index)
 routes.get('/users/posts', Authentication.Auth, UserPostController.index)
-routes.post('/users/avatars', Authentication.Auth, multer(avatarsConfig).single('file'), (req, res) => res.json({msg: 'ok'}))
+routes.post('/users/avatars', Authentication.Auth, multer(avatarsConfig).single('file'), AvatarController.store)
 
 module.exports = routes
