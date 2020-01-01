@@ -10,9 +10,9 @@ function generateToken(payload = {}) {
 module.exports = {
   async register(request, response) {
     try {
-      const { username, email, password } = request.body
+      const { name, birth_date, username, email, password } = request.body
 
-      const user = await User.create({ username, email, password })
+      const user = await User.create({ name, birth_date, username, email, password })
       user.password = undefined
 
       const token = generateToken({ id:  user.id  })

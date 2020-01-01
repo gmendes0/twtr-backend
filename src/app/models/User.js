@@ -6,7 +6,9 @@ class User extends Model {
     super.init({
       username: DataTypes.STRING,
       email: DataTypes.STRING,
-      password: DataTypes.STRING
+      password: DataTypes.STRING,
+      name: DataTypes.STRING,
+      birth_date: DataTypes.DATE,
     }, {
       hooks: {
         beforeCreate: async (user) => {
@@ -18,7 +20,6 @@ class User extends Model {
   }
 
   static associate(models) {
-    this.hasOne(models.Profile, { foreignKey: 'user_id', as: 'profile' })
     this.hasMany(models.Post, { foreignKey: 'user_id', as: 'posts' })
   }
 }
