@@ -32,5 +32,6 @@ routes.post('/users/avatars', Authentication.Auth, multer(avatarsConfig).single(
 routes.delete('/avatars/:avatar_id', Authentication.Auth, AvatarController.destroy)
 routes.post('/posts/:post_id/images', Authentication.Auth, VerifyPostExists.verify, multer(postImageConfig).single('file'), ImageController.store)
 routes.delete('/users/images/:image_id', Authentication.Auth, ImageController.destroy)
+routes.put('/users/avatars/:avatar_id', Authentication.Auth, multer(avatarsConfig).single('file'), AvatarController.update)
 
 module.exports = routes
