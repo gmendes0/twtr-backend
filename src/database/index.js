@@ -3,6 +3,7 @@ const User = require('../app/models/User')
 const Post = require('../app/models/Post')
 const Comment = require('../app/models/Comment')
 const Avatar = require('../app/models/Avatar')
+const Image = require('../app/models/Image')
 
 const dbconfig = require('../config/database')
 
@@ -12,10 +13,12 @@ User.init(connection)
 Post.init(connection)
 Comment.init(connection)
 Avatar.init(connection)
+Image.init(connection)
 
 User.associate(connection.models)
 Post.associate(connection.models)
 Comment.associate(connection.models)
 Avatar.associate(connection.models)
+Image.associate(connection.models)
 
 module.exports = connection
