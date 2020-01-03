@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-const secret = require('../../config/jwt')
+
+const secret = process.env.JWT_SECRET
 
 module.exports = {
   
@@ -17,7 +18,7 @@ module.exports = {
     if (!token)
       return response.status(401).json({ error: { message: 'Token not found.' } })
 
-    jwt.verify(token, secret.secret, (error, decoded) => {
+    jwt.verify(token, secret, (error, decoded) => {
       if (error)
         return response.status(401).json({ error: { message: 'Invalid token.' } })
       

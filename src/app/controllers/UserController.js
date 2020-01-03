@@ -1,10 +1,11 @@
 const User = require('../models/User')
 const bcryptjs = require('bcryptjs')
-const secret = require('../../config/jwt')
 const jwt = require('jsonwebtoken')
 
+const secret = process.env.JWT_SECRET
+
 function generateToken(payload = {}) {
-  return jwt.sign(payload, secret.secret, { expiresIn: 86400 })
+  return jwt.sign(payload, secret, { expiresIn: 86400 })
 }
 
 module.exports = {
@@ -25,6 +26,7 @@ module.exports = {
 
   async login(request, response) {
     try {
+      console.log(secret)
       const { email, password } = request.body
 
       const user = await User.findOne({ where: { email }})
@@ -39,7 +41,6 @@ module.exports = {
         return response.json({ user, token })
       }
     } catch (error) {
-      console.log(error)
       return response.json({ error: error.message })
     }
   }
