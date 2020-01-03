@@ -19,14 +19,12 @@ module.exports = {
       const token = generateToken({ id:  user.id  })
       return response.json({ user, token })
     } catch (error) {
-      console.log(error)
       return response.json({error: error})
     }
   },
 
   async login(request, response) {
     try {
-      console.log(secret)
       const { email, password } = request.body
 
       const user = await User.findOne({ where: { email }})

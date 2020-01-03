@@ -12,6 +12,13 @@ module.exports = {
       post_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        references: { model: 'posts', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references: { model: 'users', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
@@ -26,6 +33,10 @@ module.exports = {
       },
       size: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      url: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {

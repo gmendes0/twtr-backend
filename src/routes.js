@@ -29,6 +29,8 @@ routes.delete('/comments/:comment_id', Authentication.Auth, CommentController.de
 routes.get('/posts/:post_id/comments', PostCommentController.index)
 routes.get('/users/posts', Authentication.Auth, UserPostController.index)
 routes.post('/users/avatars', Authentication.Auth, multer(avatarsConfig).single('file'), AvatarController.store)
+routes.delete('/avatars/:avatar_id', Authentication.Auth, AvatarController.destroy)
 routes.post('/posts/:post_id/images', Authentication.Auth, VerifyPostExists.verify, multer(postImageConfig).single('file'), ImageController.store)
+routes.delete('/users/images/:image_id', Authentication.Auth, ImageController.destroy)
 
 module.exports = routes

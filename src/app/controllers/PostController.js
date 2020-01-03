@@ -4,7 +4,7 @@ const User = require('../models/User')
 module.exports = {
   async index(request, response) {
     try {
-      const posts = await Post.findAll({ include: { association: 'user' }})
+      const posts = await Post.findAll({ include: [{ association: 'user' }, { association: 'images' }] })
 
       return response.json(posts)
     } catch (error) {
@@ -16,7 +16,7 @@ module.exports = {
     try {
       const { post_id } = request.params
 
-      const post = await Post.findByPk(post_id, { include: { association: 'user' }})
+      const post = await Post.findByPk(post_id, { include: [{ association: 'user' }, { association: 'images' }] })
 
       if (!post)
         return response.json({ error: 'post not found.' })

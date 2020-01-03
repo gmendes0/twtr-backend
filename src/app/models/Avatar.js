@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+const { promisify } = require('util')
+
 const { Model, DataTypes } = require('sequelize')
 
 class Avatar extends Model {
@@ -6,7 +10,18 @@ class Avatar extends Model {
       filename: DataTypes.STRING,
       originalname: DataTypes.STRING,
       size: DataTypes.INTEGER,
-    },{sequelize: connection})
+      url: DataTypes.STRING,
+    },{
+      sequelize: connection,
+      hooks: {
+        beforeSave: async (avatar) => {
+          avatar.url = `${process.env.APP_URL}/avatars/${avatar.filename}`
+        },
+        beforeDestroy: async (avatar) => {
+          await promisify(fs.unlink)(path.resolve(__dirname, '..', '..', '..', 'uploads', 'avatars', avatar.filename))
+        }
+      }
+    })
   }
 
   static associate(models) {
